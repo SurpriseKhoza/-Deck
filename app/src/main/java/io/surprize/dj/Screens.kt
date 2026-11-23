@@ -200,7 +200,7 @@ fun Songs(d: Deck, close: () -> Unit) {
     var pls by remember { mutableStateOf(readPl()) }; var newPl by remember { mutableStateOf(false) }; var plName by remember { mutableStateOf("") }
     fun addTo(n: String, u: Uri) { sp.edit().putString(n, ((pls[n] ?: listOf()) + u.toString()).joinToString("\n")).apply(); pls = readPl() }
     val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { if (it) tracks = scan(ctx) }
-    LaunchedEffect(Unit) { if (ctx.checkSelfPermission(perm) == 0) tracks = scan(ctx) else ask.launch(perm) }
+    LaunchedEffect(Unit) { if (ctx.checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED) tracks = scan(ctx) else ask.launch(perm) }
     val tabs = listOf("PLAYLISTS", "SONGS", "ALBUMS", "ARTISTS", "GENRES"); val sortNames = listOf("TITLE", "ARTIST", "LENGTH")
     val shown = tracks.filter { (filt?.invoke(it) ?: true) && (it.title.contains(q, true) || it.artist.contains(q, true)) }
         .sortedWith(when (sort) { 0 -> compareBy { it.title.lowercase() }; 1 -> compareBy { it.artist.lowercase() }; else -> compareBy { it.dur } })
