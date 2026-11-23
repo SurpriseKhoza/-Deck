@@ -19,7 +19,7 @@ concurrency:
 env:
   # The project has no Gradle wrapper committed, so CI pins the Gradle version itself.
   # AGP 8.5.2 needs Gradle 8.7 or newer.
-  GRADLE_VERSION: "9.6"
+  GRADLE_VERSION: "9.6.0"
 
 jobs:
   engine:
